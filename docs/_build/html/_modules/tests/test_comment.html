@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tests.test_comment &mdash; projectkernel  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="projectkernel  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">projectkernel  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for tests.test_comment</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@author Lingyan Zhou</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">projectkernel</span>
+<span class="kn">import</span> <span class="nn">projectkernel.comment</span>
+<span class="kn">from</span> <span class="nn">projectkernel.comment</span> <span class="kn">import</span> <span class="n">Comment</span> 
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<div class="viewcode-block" id="TestComment"><a class="viewcode-back" href="../../tests.html#tests.test_comment.TestComment">[docs]</a><span class="k">class</span> <span class="nc">TestComment</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestComment.test_user_name"><a class="viewcode-back" href="../../tests.html#tests.test_comment.TestComment.test_user_name">[docs]</a>    <span class="k">def</span> <span class="nf">test_user_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">()</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_user_name</span><span class="p">(</span><span class="s">&quot;Name1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_user_name</span><span class="p">(),</span> <span class="s">&quot;Name1&quot;</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_user_name</span><span class="p">(</span><span class="s">&quot;Name2&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_user_name</span><span class="p">(),</span> <span class="s">&quot;Name2&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TestComment.test_time"><a class="viewcode-back" href="../../tests.html#tests.test_comment.TestComment.test_time">[docs]</a>    <span class="k">def</span> <span class="nf">test_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">()</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_time</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_time</span><span class="p">(),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_time_by_str</span><span class="p">(</span><span class="s">&quot;02/29/16 12:00:00&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_time_as_str</span><span class="p">(),</span> <span class="s">&quot;02/29/16 12:00:00&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">set_time</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">set_time</span><span class="p">(</span><span class="mi">2100</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TestComment.test_id"><a class="viewcode-back" href="../../tests.html#tests.test_comment.TestComment.test_id">[docs]</a>    <span class="k">def</span> <span class="nf">test_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">()</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_id</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_id</span><span class="p">(),</span> <span class="s">&quot;1&quot;</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_id</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_id</span><span class="p">(),</span> <span class="s">&quot;2&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TestComment.test_message"><a class="viewcode-back" href="../../tests.html#tests.test_comment.TestComment.test_message">[docs]</a>    <span class="k">def</span> <span class="nf">test_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">()</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_message</span><span class="p">(</span><span class="s">&quot;message1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_message</span><span class="p">(),</span> <span class="s">&quot;message1&quot;</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_message</span><span class="p">(</span><span class="s">&quot;message2&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_message</span><span class="p">(),</span> <span class="s">&quot;message2&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TestComment.test_is_complete"><a class="viewcode-back" href="../../tests.html#tests.test_comment.TestComment.test_is_complete">[docs]</a>    <span class="k">def</span> <span class="nf">test_is_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">c</span><span class="o">=</span> <span class="n">Comment</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">is_complete</span><span class="p">())</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_id</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">is_complete</span><span class="p">())</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_time_now</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">is_complete</span><span class="p">())</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_user_name</span><span class="p">(</span><span class="s">&quot;user1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">is_complete</span><span class="p">())</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_message</span><span class="p">(</span><span class="s">&quot;message 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">is_complete</span><span class="p">())</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">projectkernel  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

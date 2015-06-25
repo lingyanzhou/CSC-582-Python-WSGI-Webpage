@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>projectkernel.reservationdataaccess &mdash; projectkernel  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="projectkernel  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">projectkernel  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for projectkernel.reservationdataaccess</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> @author Lingyan Zhou</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">reservation</span>
+
+<span class="kn">import</span> <span class="nn">configparser</span>
+
+<div class="viewcode-block" id="ReservationDataAccess"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess">[docs]</a><span class="k">class</span> <span class="nc">ReservationDataAccess</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_file_name</span> <span class="o">=</span> <span class="n">filename</span><span class="p">;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="ReservationDataAccess.load"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_config_file_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="o">.</span><span class="n">sections</span><span class="p">():</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">reservation</span><span class="o">.</span><span class="n">Reservation</span><span class="p">()</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">set_id</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">set_start_time_by_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="nb">id</span><span class="p">][</span><span class="s">&quot;start_time&quot;</span><span class="p">],</span> <span class="s">&quot;</span><span class="si">%x</span><span class="s"> </span><span class="si">%X</span><span class="s">&quot;</span><span class="p">)</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">set_end_time_by_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="nb">id</span><span class="p">][</span><span class="s">&quot;end_time&quot;</span><span class="p">],</span> <span class="s">&quot;</span><span class="si">%x</span><span class="s"> </span><span class="si">%X</span><span class="s">&quot;</span><span class="p">)</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">set_reserver_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="nb">id</span><span class="p">][</span><span class="s">&quot;reserver&quot;</span><span class="p">])</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">set_reserved_room_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="nb">id</span><span class="p">][</span><span class="s">&quot;room_id&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ReservationDataAccess.save"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_config_file_name</span><span class="p">,</span> <span class="s">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</div>
+<div class="viewcode-block" id="ReservationDataAccess.list_all_reservations"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess.list_all_reservations">[docs]</a>    <span class="k">def</span> <span class="nf">list_all_reservations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ReservationDataAccess.list_reservations_by_reserver"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess.list_reservations_by_reserver">[docs]</a>    <span class="k">def</span> <span class="nf">list_reservations_by_reserver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">rsv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_resever_name</span><span class="p">()</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rsv</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l</span>
+</div>
+<div class="viewcode-block" id="ReservationDataAccess.list_reservations_by_room_id"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess.list_reservations_by_room_id">[docs]</a>    <span class="k">def</span> <span class="nf">list_reservations_by_room_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">rsv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_room_id</span><span class="p">()</span> <span class="o">==</span> <span class="n">room_id</span><span class="p">:</span>
+                <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rsv</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l</span>
+    </div>
+<div class="viewcode-block" id="ReservationDataAccess.add_reservation"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess.add_reservation">[docs]</a>    <span class="k">def</span> <span class="nf">add_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rsv</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">rsv</span><span class="o">.</span><span class="n">is_reservation_complete</span><span class="p">()</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">rsv</span><span class="o">.</span><span class="n">is_reservation_time_valid</span><span class="p">()</span>
+                <span class="ow">and</span>  <span class="n">rsv</span><span class="o">.</span><span class="n">has_expired</span><span class="p">()):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        
+        <span class="k">for</span> <span class="n">existing_rsv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rsv</span> <span class="ow">is</span> <span class="n">existing_rsv</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">for</span> <span class="n">existing_rsv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rsv</span><span class="o">.</span><span class="n">conflict_with</span><span class="p">(</span><span class="n">existing_rsv</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="n">newid</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">();</span>
+        <span class="k">if</span> <span class="n">newid</span><span class="o">!=</span><span class="bp">None</span> <span class="ow">and</span> <span class="n">newid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="o">.</span><span class="n">sections</span><span class="p">():</span>
+            <span class="k">pass</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="o">.</span><span class="n">sections</span><span class="p">():</span>
+                    <span class="n">newid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="nb">id</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">rsv</span><span class="o">.</span><span class="n">set_id</span><span class="p">(</span><span class="n">newid</span><span class="p">);</span>
+            
+        <span class="n">newrsv</span> <span class="o">=</span> <span class="n">reservation</span><span class="o">.</span><span class="n">Reservation</span><span class="p">()</span>
+        <span class="n">newrsv</span><span class="o">.</span><span class="n">set_id</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">())</span>
+        <span class="n">newrsv</span><span class="o">.</span><span class="n">set_start_time_by_str</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_start_time_as_str</span><span class="p">())</span>
+        <span class="n">newrsv</span><span class="o">.</span><span class="n">set_end_time_by_str</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_end_time_as_str</span><span class="p">())</span>
+        <span class="n">newrsv</span><span class="o">.</span><span class="n">set_reserver_name</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_reserver_name</span><span class="p">())</span>
+        <span class="n">newrsv</span><span class="o">.</span><span class="n">set_reserved_room_id</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_reserved_room_id</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newrsv</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">newid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">newid</span><span class="p">][</span><span class="s">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_start_time_as_str</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">newid</span><span class="p">][</span><span class="s">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_end_time_as_str</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">newid</span><span class="p">][</span><span class="s">&quot;reserver&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_reserver_name</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">newid</span><span class="p">][</span><span class="s">&quot;room_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_reserved_room_id</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">True</span><span class="p">;</span>
+</div>
+<div class="viewcode-block" id="ReservationDataAccess.update_reservation"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess.update_reservation">[docs]</a>    <span class="k">def</span> <span class="nf">update_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rsv</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">())):</span>
+            <span class="k">for</span> <span class="n">existing_rsv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">existing_rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="o">!=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span> <span class="ow">and</span> <span class="n">rsv</span><span class="o">.</span><span class="n">conflict_with</span><span class="p">(</span><span class="n">existing_rsv</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+
+            <span class="k">for</span> <span class="n">existing_rsv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">existing_rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="o">==</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">():</span>
+                    <span class="n">existing_rsv</span><span class="o">.</span><span class="n">set_start_time_by_str</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_start_time_as_str</span><span class="p">())</span>
+                    <span class="n">existing_rsv</span><span class="o">.</span><span class="n">set_end_time_by_str</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_end_time_as_str</span><span class="p">())</span>
+                    <span class="n">existing_rsv</span><span class="o">.</span><span class="n">set_reserver_name</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_reserver_name</span><span class="p">())</span>
+                    <span class="n">existing_rsv</span><span class="o">.</span><span class="n">set_reserved_room_id</span><span class="p">(</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_reserved_room_id</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">()][</span><span class="s">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_start_time_as_str</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">()][</span><span class="s">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_end_time_as_str</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">()][</span><span class="s">&quot;reserver&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_reserver_name</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="p">[</span><span class="n">rsv</span><span class="o">.</span><span class="n">get_id</span><span class="p">()][</span><span class="s">&quot;room_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsv</span><span class="o">.</span><span class="n">get_reserved_room_id</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        </div>
+<div class="viewcode-block" id="ReservationDataAccess.delete_reservation_by_id"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservationdataaccess.ReservationDataAccess.delete_reservation_by_id">[docs]</a>    <span class="k">def</span> <span class="nf">delete_reservation_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="o">==</span><span class="nb">id</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_reservations</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">break</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_config_parser</span><span class="o">.</span><span class="n">remove_section</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">projectkernel  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

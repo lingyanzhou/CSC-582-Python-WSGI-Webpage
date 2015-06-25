@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>projectkernel.reservation &mdash; projectkernel  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="projectkernel  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">projectkernel  documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for projectkernel.reservation</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> @author Lingyan Zhou</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<div class="viewcode-block" id="Reservation"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation">[docs]</a><span class="k">class</span> <span class="nc">Reservation</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reservation class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_id</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_reserver_name</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_reserved_room_id</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="Reservation.set_id"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.set_id">[docs]</a>    <span class="k">def</span> <span class="nf">set_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_id</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+<div class="viewcode-block" id="Reservation.get_id"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.get_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_id</span>
+</div>
+<div class="viewcode-block" id="Reservation.set_start_time"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.set_start_time">[docs]</a>    <span class="k">def</span> <span class="nf">set_start_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span>  <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span><span class="p">,</span> <span class="n">tzinfo</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Reservation.set_end_time"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.set_end_time">[docs]</a>    <span class="k">def</span> <span class="nf">set_end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span>  <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span><span class="p">,</span> <span class="n">tzinfo</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Reservation.set_start_time_by_str"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.set_start_time_by_str">[docs]</a>    <span class="k">def</span> <span class="nf">set_start_time_by_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_string</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">format</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+            <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%x</span><span class="s"> </span><span class="si">%X</span><span class="s">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="n">format</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Reservation.set_end_time_by_str"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.set_end_time_by_str">[docs]</a>    <span class="k">def</span> <span class="nf">set_end_time_by_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_string</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">format</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+            <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%x</span><span class="s"> </span><span class="si">%X</span><span class="s">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="n">format</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Reservation.set_end_time_by_offset"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.set_end_time_by_offset">[docs]</a>    <span class="k">def</span> <span class="nf">set_end_time_by_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microseconds</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">milliseconds</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weeks</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">td</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">seconds</span><span class="p">,</span> <span class="n">microseconds</span><span class="p">,</span> <span class="n">milliseconds</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">hours</span><span class="p">,</span> <span class="n">weeks</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> <span class="o">=</span> <span class="n">m_start_time</span> <span class="o">+</span> <span class="n">td</span>
+</div>
+<div class="viewcode-block" id="Reservation.set_reserver_name"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.set_reserver_name">[docs]</a>    <span class="k">def</span> <span class="nf">set_reserver_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_reserver_name</span> <span class="o">=</span> <span class="n">name</span>
+</div>
+<div class="viewcode-block" id="Reservation.set_reserved_room_id"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.set_reserved_room_id">[docs]</a>    <span class="k">def</span> <span class="nf">set_reserved_room_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_reserved_room_id</span> <span class="o">=</span> <span class="nb">id</span>
+</div>
+<div class="viewcode-block" id="Reservation.get_start_time"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.get_start_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span>
+</div>
+<div class="viewcode-block" id="Reservation.get_start_time_as_str"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.get_start_time_as_str">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_time_as_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">format</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+            <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%x</span><span class="s"> </span><span class="si">%X</span><span class="s">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Reservation.get_end_time"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.get_end_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span>
+</div>
+<div class="viewcode-block" id="Reservation.get_end_time_as_str"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.get_end_time_as_str">[docs]</a>    <span class="k">def</span> <span class="nf">get_end_time_as_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">format</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+            <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%x</span><span class="s"> </span><span class="si">%X</span><span class="s">&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Reservation.get_reserver_name"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.get_reserver_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_reserver_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reserver_name</span>
+</div>
+<div class="viewcode-block" id="Reservation.get_reserved_room_id"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.get_reserved_room_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_reserved_room_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reserved_room_id</span>
+</div>
+<div class="viewcode-block" id="Reservation.is_reservation_complete"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.is_reservation_complete">[docs]</a>    <span class="k">def</span> <span class="nf">is_reservation_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> <span class="o">!=</span> <span class="bp">None</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span> <span class="o">!=</span> <span class="bp">None</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reserver_name</span> <span class="o">!=</span> <span class="bp">None</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reserved_room_id</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Reservation.is_reservation_time_valid"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.is_reservation_time_valid">[docs]</a>    <span class="k">def</span> <span class="nf">is_reservation_time_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">None</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> 
+                <span class="ow">or</span> <span class="bp">None</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">false</span><span class="p">;</span>
+        <span class="n">td</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span>
+        <span class="k">return</span> <span class="n">td</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</div>
+<div class="viewcode-block" id="Reservation.has_expired"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.has_expired">[docs]</a>    <span class="k">def</span> <span class="nf">has_expired</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">td</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">td</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+</div>
+<div class="viewcode-block" id="Reservation.conflict_with"><a class="viewcode-back" href="../../projectkernel.html#projectkernel.reservation.Reservation.conflict_with">[docs]</a>    <span class="k">def</span> <span class="nf">conflict_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reserv</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_reserver_name</span> <span class="o">==</span> <span class="n">reserv</span><span class="o">.</span><span class="n">m_reserver_name</span>
+                <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_reserved_room_id</span> <span class="o">==</span> <span class="n">reserv</span><span class="o">.</span><span class="n">m_reserved_room_id</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_start_time</span> <span class="o">&gt;=</span> <span class="n">reserv</span><span class="o">.</span><span class="n">m_end_time</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_end_time</span> <span class="o">&lt;=</span> <span class="n">reserv</span><span class="o">.</span><span class="n">m_start_time</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">projectkernel  documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
