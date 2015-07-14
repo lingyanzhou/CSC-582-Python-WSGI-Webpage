@@ -127,6 +127,16 @@ from .deletepaymentcommand import DeletePaymentCommand
 from . import deletetravelarrangementcommand
 from .deletetravelarrangementcommand import DeleteTravelArrangementCommand
 
+from . import guestsubapp
+from .guestsubapp import GuestSubApp
+
+from . import adminsubapp
+from .adminsubapp import AdminSubApp
+
+from . import subappcommand
+from .subappcommand import SubAppCommand
+
+
 class MainApp(CLIApp):
     def __init__(self):
         CLIApp.__init__(self)
@@ -140,97 +150,30 @@ class MainApp(CLIApp):
         self.m_PaymentDA = PaymentDataAccess("./data/Payment.ini")
         self.m_TravelArrangementDA = TravelArrangementDataAccess("./data/TravelArrangement.ini")
 
-        loadCommand = LoadCommand()
-        loadCommand.attach_dataaccess(self.m_RoomDA)
-        loadCommand.attach_dataaccess(self.m_RoomReservationDA)
-        loadCommand.attach_dataaccess(self.m_CommentDA)
-        loadCommand.attach_dataaccess(self.m_RanchDA)
-        loadCommand.attach_dataaccess(self.m_ActivityDA)
-        loadCommand.attach_dataaccess(self.m_ActivityReservationDA)
-        loadCommand.attach_dataaccess(self.m_DirectionDA)
-        loadCommand.attach_dataaccess(self.m_PaymentDA)
-        loadCommand.attach_dataaccess(self.m_TravelArrangementDA)
-        
-        saveCommand = SaveCommand()
-        saveCommand.attach_dataaccess(self.m_RoomDA)
-        saveCommand.attach_dataaccess(self.m_RoomReservationDA)
-        saveCommand.attach_dataaccess(self.m_CommentDA)
-        saveCommand.attach_dataaccess(self.m_RanchDA)
-        saveCommand.attach_dataaccess(self.m_ActivityDA)
-        saveCommand.attach_dataaccess(self.m_ActivityReservationDA)
-        saveCommand.attach_dataaccess(self.m_DirectionDA)
-        saveCommand.attach_dataaccess(self.m_PaymentDA)
-        saveCommand.attach_dataaccess(self.m_TravelArrangementDA)
-
-
-        printRanchCommand = PrintRanchCommand(self.m_RanchDA)
-        listCommentsCommand = ListCommentsCommand(self.m_CommentDA)
-        listActivitiesCommand = ListActivitiesCommand(self.m_ActivityDA)
-        listRoomsCommand = ListRoomsCommand(self.m_RoomDA)
-        listRoomReservationsCommand = ListRoomReservationsCommand(self.m_RoomReservationDA)
-        listActivityReservationsCommand = ListActivityReservationsCommand(self.m_ActivityReservationDA)
-        listDirectionsCommand = ListDirectionsCommand(self.m_DirectionDA)
-        listPaymentsCommand = ListPaymentsCommand(self.m_PaymentDA)
-        listTravelArrangementsCommand = ListTravelArrangementsCommand(self.m_TravelArrangementDA)
-        
-        addRoomCommand = AddRoomCommand(self.m_RoomDA)
-        addActivityCommand = AddActivityCommand(self.m_ActivityDA)
-        addCommentCommand = AddCommentCommand(self.m_CommentDA)
-        makeRoomReservationCommand = MakeRoomReservationCommand(self.m_RoomReservationDA)
-        makeActivityReservationCommand = MakeActivityReservationCommand(self.m_ActivityReservationDA)
-        makePaymentCommand = MakePaymentCommand(self.m_PaymentDA)
-        makeTravelArrangementCommand = MakeTravelArrangementCommand(self.m_TravelArrangementDA)
-        
-        updateRanchCommand = UpdateRanchCommand(self.m_RanchDA)
-        updateRoomCommand = UpdateRoomCommand(self.m_RoomDA)
-        updateActivityCommand = UpdateActivityCommand(self.m_ActivityDA)
-        updateCommentCommand = UpdateCommentCommand(self.m_CommentDA)
-        updateRoomReservationCommand = UpdateRoomReservationCommand(self.m_RoomReservationDA)
-        updateActivityReservationCommand = UpdateActivityReservationCommand(self.m_ActivityReservationDA)
-        updatePaymentCommand = UpdatePaymentCommand(self.m_PaymentDA)
-        updateTravelArrangementCommand = UpdateTravelArrangementCommand(self.m_TravelArrangementDA)
-
-        deleteRoomCommand = DeleteRoomCommand(self.m_RoomDA)
-        deleteActivityCommand = DeleteActivityCommand(self.m_ActivityDA)
-        deleteCommentCommand = DeleteCommentCommand(self.m_CommentDA)
-        deleteRoomReservationCommand = DeleteRoomReservationCommand(self.m_RoomReservationDA)
-        deleteActivityReservationCommand = DeleteActivityReservationCommand(self.m_ActivityReservationDA)
-        deletePaymentCommand = DeletePaymentCommand(self.m_PaymentDA)
-        deleteTravelArrangementCommand = DeleteTravelArrangementCommand(self.m_TravelArrangementDA)
-
-        self.m_commands.append(saveCommand)
-        self.m_commands.append(loadCommand)
-        self.m_commands.append(printRanchCommand)
-        self.m_commands.append(listRoomsCommand)
-        self.m_commands.append(listCommentsCommand)
-        self.m_commands.append(listActivitiesCommand)
-        self.m_commands.append(listRoomReservationsCommand)
-        self.m_commands.append(listActivityReservationsCommand)
-        self.m_commands.append(listPaymentsCommand)
-        self.m_commands.append(listDirectionsCommand)
-        self.m_commands.append(listTravelArrangementsCommand)
-        
-        self.m_commands.append(addRoomCommand)
-        self.m_commands.append(addActivityCommand)
-        self.m_commands.append(addCommentCommand)
-        self.m_commands.append(makeRoomReservationCommand)
-        self.m_commands.append(makeActivityReservationCommand)
-        self.m_commands.append(makePaymentCommand)
-        self.m_commands.append(makeTravelArrangementCommand)
-
-        self.m_commands.append(updateRanchCommand)
-        self.m_commands.append(updateRoomCommand)
-        self.m_commands.append(updateActivityCommand)
-        self.m_commands.append(updateCommentCommand)
-        self.m_commands.append(updateRoomReservationCommand)
-        self.m_commands.append(updateActivityReservationCommand)
-        self.m_commands.append(updatePaymentCommand)
-        self.m_commands.append(updateTravelArrangementCommand)
-
-        self.m_commands.append(deleteRoomCommand)
-        self.m_commands.append(deleteActivityCommand)
-        self.m_commands.append(deleteCommentCommand)
-        self.m_commands.append(deleteRoomReservationCommand)
-        self.m_commands.append(deleteActivityReservationCommand)
-        self.m_commands.append(deletePaymentCommand)
-        self.m_commands.append(deleteTravelArrangementCommand)
+        self.m_commands.append(
+                SubAppCommand(
+                    GuestSubApp(
+                        self.m_RoomReservationDA,
+                        self.m_CommentDA,
+                        self.m_RanchDA,
+                        self.m_RoomDA,
+                        self.m_ActivityDA,
+                        self.m_ActivityReservationDA,
+                        self.m_DirectionDA,
+                        self.m_PaymentDA,
+                        self.m_TravelArrangementDA
+                        ), "Guest menu"))
+        self.m_commands.append(
+                SubAppCommand(
+                    AdminSubApp(
+                        self.m_RoomReservationDA,
+                        self.m_CommentDA,
+                        self.m_RanchDA,
+                        self.m_RoomDA,
+                        self.m_ActivityDA,
+                        self.m_ActivityReservationDA,
+                        self.m_DirectionDA,
+                        self.m_PaymentDA,
+                        self.m_TravelArrangementDA
+                        ), "Admin menu")
+                    )
