@@ -1,11 +1,11 @@
 """
  @author Lingyan Zhou
 """
-from . import reservation
+from . import activityreservation
 
 import configparser
 
-class ReservationDataAccess:
+class ActivityReservationDataAccess:
     def __init__(self, filename):
         self.m_config_parser = configparser.ConfigParser()
         self.m_config_file_name = filename;
@@ -15,12 +15,12 @@ class ReservationDataAccess:
         self.m_config_parser.read(self.m_config_file_name)
         self.m_reservations = list()
         for id in self.m_config_parser.sections():
-            r = reservation.Reservation()
+            r = activityreservation.ActivityReservation()
             r.set_id(id)
             r.set_start_time_by_str(self.m_config_parser[id]["start_time"], "%x %X")
             r.set_end_time_by_str(self.m_config_parser[id]["end_time"], "%x %X")
             r.set_reserver_name(self.m_config_parser[id]["reserver"])
-            r.set_reserved_room_id(self.m_config_parser[id]["room_id"])
+            r.set_activity_id(self.m_config_parser[id]["activity_id"])
             self.m_reservations.append(r)
 
     def save(self):
@@ -37,10 +37,10 @@ class ReservationDataAccess:
                 l.append(rsv)
         return l
 
-    def list_reservations_by_room_id(self, room_id):
+    def list_reservations_by_activity_id(self, activity_id):
         l = list()
         for rsv in self.m_reservations:
-            if rsv.get_room_id() == room_id:
+            if rsv.get_activity_id() == activity_id:
                 l.append(rsv)
         return l
     
@@ -70,19 +70,19 @@ class ReservationDataAccess:
                 id += 1
             rsv.set_id(newid);
             
-        newrsv = reservation.Reservation()
+        newrsv = activityreservation.ActivityReservation()
         newrsv.set_id(rsv.get_id())
         newrsv.set_start_time_by_str(rsv.get_start_time_as_str())
         newrsv.set_end_time_by_str(rsv.get_end_time_as_str())
         newrsv.set_reserver_name(rsv.get_reserver_name())
-        newrsv.set_reserved_room_id(rsv.get_reserved_room_id())
+        newrsv.set_activity_id(rsv.get_activity_id())
         self.m_reservations.append(newrsv)
 
         self.m_config_parser[newid] = {}
         self.m_config_parser[newid]["start_time"] = rsv.get_start_time_as_str()
         self.m_config_parser[newid]["end_time"] = rsv.get_end_time_as_str()
         self.m_config_parser[newid]["reserver"] = rsv.get_reserver_name()
-        self.m_config_parser[newid]["room_id"] = rsv.get_reserved_room_id()
+        self.m_config_parser[newid]["activity_id"] = rsv.get_activity_id()
 
         return True;
 
@@ -97,11 +97,11 @@ class ReservationDataAccess:
                     existing_rsv.set_start_time_by_str(rsv.get_start_time_as_str())
                     existing_rsv.set_end_time_by_str(rsv.get_end_time_as_str())
                     existing_rsv.set_reserver_name(rsv.get_reserver_name())
-                    existing_rsv.set_reserved_room_id(rsv.get_reserved_room_id())
+                    existing_rsv.set_activity_id(rsv.get_activity_id())
             self.m_config_parser[rsv.get_id()]["start_time"] = rsv.get_start_time_as_str()
             self.m_config_parser[rsv.get_id()]["end_time"] = rsv.get_end_time_as_str()
             self.m_config_parser[rsv.get_id()]["reserver"] = rsv.get_reserver_name()
-            self.m_config_parser[rsv.get_id()]["room_id"] = rsv.get_reserved_room_id()
+            self.m_config_parser[rsv.get_id()]["activity_id"] = rsv.get_activity_id()
             return True
         else :
             return False

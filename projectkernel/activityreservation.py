@@ -4,9 +4,9 @@
 
 import datetime
 
-class Reservation:
+class ActivityReservation:
     """
-    Reservation class
+    ActivityReservation class
     """
     def __init__(self):
         """
@@ -16,7 +16,7 @@ class Reservation:
         self.m_reserver_name = None
         self.m_start_time = None
         self.m_end_time = None
-        self.m_reserved_room_id = None
+        self.m_activity_id = None
 
     def set_id(self, value):
         self.m_id = value
@@ -47,8 +47,8 @@ class Reservation:
     def set_reserver_name(self, name):
         self.m_reserver_name = name
 
-    def set_reserved_room_id(self, id):
-        self.m_reserved_room_id = id
+    def set_activity_id(self, id):
+        self.m_activity_id = id
 
     def get_start_time(self):
         return self.m_start_time
@@ -69,14 +69,14 @@ class Reservation:
     def get_reserver_name(self):
         return self.m_reserver_name
 
-    def get_reserved_room_id(self):
-        return self.m_reserved_room_id
+    def get_activity_id(self):
+        return self.m_activity_id
 
     def is_reservation_complete(self):
         return (self.m_end_time != None
                 and self.m_start_time != None
                 and self.m_reserver_name != None
-                and self.m_reserved_room_id != None)
+                and self.m_activity_id != None)
 
     def is_reservation_time_valid(self):
         if (None == self.m_end_time 
@@ -91,7 +91,7 @@ class Reservation:
 
     def conflict_with(self, reserv):
         if (self.m_reserver_name == reserv.m_reserver_name
-                or self.m_reserved_room_id == reserv.m_reserved_room_id):
+                or self.m_activity_id == reserv.m_activity_id):
             if self.m_start_time >= reserv.m_end_time:
                 return False
             if self.m_end_time <= reserv.m_start_time:
