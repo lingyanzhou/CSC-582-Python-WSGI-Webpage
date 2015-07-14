@@ -17,4 +17,5 @@ class ListActivitiesCommand(Command):
         for a in alist:
             print("=========================")
             print("id:", a.get_id())
+            print("name:", a.get_name())
             print("info:", a.get_info())

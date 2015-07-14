@@ -16,7 +16,9 @@ class UpdatePaymentCommand(Command):
         try :
             p = Payment()
             p.set_id(input("Update the payment with this id:"))
-            p.set_amount(int(input("amount:")))
+            p.set_user_id(input("user id:"))
+            p.set_is_pending("True"==input("Pending (True or False):"))
+            p.set_amount(float(input("Amount:")))
             self.m_pda.update(p)
         except EOFError:
             print("Action canceled")

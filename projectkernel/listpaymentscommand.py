@@ -17,4 +17,6 @@ class ListPaymentsCommand(Command):
         for p in plist:
             print("=========================")
             print("id:", p.get_id())
+            print("user id:", p.get_user_id())
+            print("pending:", p.is_pending())
             print("amount:", p.get_amount())

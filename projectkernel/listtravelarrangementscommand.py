@@ -16,5 +16,6 @@ class ListTravelArrangementsCommand(Command):
         talist = self.m_tada.list_all()
         for ta in talist:
             print("=========================")
+            print("id:", ta.get_id())
             print("name:", ta.get_name())
             print("description:", ta.get_description())

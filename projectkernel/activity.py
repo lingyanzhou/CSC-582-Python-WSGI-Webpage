@@ -11,6 +11,7 @@ class Activity:
         Constructor.
         """
         self.m_id = None
+        self.m_name = None
         self.m_info = None
 
     def set_id(self, value):
@@ -18,6 +19,12 @@ class Activity:
 
     def get_id(self):
         return self.m_id
+
+    def set_name(self, value):
+        self.m_name = value
+
+    def get_name(self):
+        return self.m_name
 
     def set_info(self, info):
         self.m_info = info
@@ -27,4 +34,5 @@ class Activity:
 
     def is_complete(self):
         return (self.m_id != None
-                and self.m_info != None)
+                and self.m_info != None
+                and self.m_name != None)

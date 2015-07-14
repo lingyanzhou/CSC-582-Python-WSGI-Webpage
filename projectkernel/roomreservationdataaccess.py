@@ -17,10 +17,10 @@ class RoomReservationDataAccess:
         for id in self.m_config_parser.sections():
             r = roomreservation.RoomReservation()
             r.set_id(id)
-            r.set_start_time_by_str(self.m_config_parser[id]["start_time"], "%x %X")
-            r.set_end_time_by_str(self.m_config_parser[id]["end_time"], "%x %X")
-            r.set_reserver_name(self.m_config_parser[id]["reserver"])
-            r.set_reserved_room_id(self.m_config_parser[id]["room_id"])
+            r.set_start_time_by_str(self.m_config_parser[id]["start time"], "%x %X")
+            r.set_end_time_by_str(self.m_config_parser[id]["end time"], "%x %X")
+            r.set_reserver_name(self.m_config_parser[id]["user id"])
+            r.set_reserved_room_id(self.m_config_parser[id]["room id"])
             self.m_reservations.append(r)
 
     def save(self):
@@ -79,10 +79,10 @@ class RoomReservationDataAccess:
         self.m_reservations.append(newrsv)
 
         self.m_config_parser[newid] = {}
-        self.m_config_parser[newid]["start_time"] = rsv.get_start_time_as_str()
-        self.m_config_parser[newid]["end_time"] = rsv.get_end_time_as_str()
-        self.m_config_parser[newid]["reserver"] = rsv.get_reserver_name()
-        self.m_config_parser[newid]["room_id"] = rsv.get_reserved_room_id()
+        self.m_config_parser[newid]["start time"] = rsv.get_start_time_as_str()
+        self.m_config_parser[newid]["end time"] = rsv.get_end_time_as_str()
+        self.m_config_parser[newid]["user id"] = rsv.get_reserver_name()
+        self.m_config_parser[newid]["room id"] = rsv.get_reserved_room_id()
 
         return True;
 
@@ -98,10 +98,10 @@ class RoomReservationDataAccess:
                     existing_rsv.set_end_time_by_str(rsv.get_end_time_as_str())
                     existing_rsv.set_reserver_name(rsv.get_reserver_name())
                     existing_rsv.set_reserved_room_id(rsv.get_reserved_room_id())
-            self.m_config_parser[rsv.get_id()]["start_time"] = rsv.get_start_time_as_str()
-            self.m_config_parser[rsv.get_id()]["end_time"] = rsv.get_end_time_as_str()
-            self.m_config_parser[rsv.get_id()]["reserver"] = rsv.get_reserver_name()
-            self.m_config_parser[rsv.get_id()]["room_id"] = rsv.get_reserved_room_id()
+            self.m_config_parser[rsv.get_id()]["start time"] = rsv.get_start_time_as_str()
+            self.m_config_parser[rsv.get_id()]["end time"] = rsv.get_end_time_as_str()
+            self.m_config_parser[rsv.get_id()]["user id"] = rsv.get_reserver_name()
+            self.m_config_parser[rsv.get_id()]["room id"] = rsv.get_reserved_room_id()
             return True
         else :
             return False

@@ -15,12 +15,15 @@ class TestActivityDataAccess(unittest.TestCase):
     def setUp(self):
         conf = configparser.ConfigParser()
         conf["id1"] = {}
+        conf["id1"]["name"] = "name1"
         conf["id1"]["info"] = "info1"
 
         conf["id2"] = {}
+        conf["id2"]["name"] = "name2"
         conf["id2"]["info"] = "info2"
         
         conf["id3"] = {}
+        conf["id3"]["name"] = "name3"
         conf["id3"]["info"] = "info3"
 
         with open("test.ini", "wt") as f:
@@ -38,26 +41,31 @@ class TestActivityDataAccess(unittest.TestCase):
 
         a = rlist[0]
         self.assertEqual(a.get_id(), "id1")
+        self.assertEqual(a.get_name(), "name1")
         self.assertEqual(a.get_info(), "info1")
 
         a = rlist[1]
         self.assertEqual(a.get_id(), "id2")
+        self.assertEqual(a.get_name(), "name2")
         self.assertEqual(a.get_info(), "info2")
 
         a = rlist[2]
         self.assertEqual(a.get_id(), "id3")
+        self.assertEqual(a.get_name(), "name3")
         self.assertEqual(a.get_info(), "info3")
 
     def test_add_save(self):
         ada = ActivityDataAccess("test.ini")
         r = Activity()
         r.set_id("id3")
+        r.set_name("name3")
         r.set_info("info3")
         self.assertTrue(ada.add_activity(r))
         ada.save()
 
         with open("test.ini", "rt") as f:
             self.assertEqual(f.readline(), "[id3]\n")
+            self.assertEqual(f.readline(), "name = name3\n")
             self.assertEqual(f.readline(), "info = info3\n")
 
     def test_add_autoid(self):
@@ -65,27 +73,32 @@ class TestActivityDataAccess(unittest.TestCase):
         ada.load()
         r = Activity()
         r.set_id("id3")
+        r.set_name("name3")
         r.set_info("info3")
         self.assertTrue(ada.add_activity(r))
         ada.save()
 
         with open("test.ini", "rt") as f:
             self.assertEqual(f.readline(), "[id1]\n")
+            self.assertEqual(f.readline(), "name = name1\n")
             self.assertEqual(f.readline(), "info = info1\n")
 
             self.assertEqual(f.readline(), "\n")
 
             self.assertEqual(f.readline(), "[id2]\n")
+            self.assertEqual(f.readline(), "name = name2\n")
             self.assertEqual(f.readline(), "info = info2\n")
 
             self.assertEqual(f.readline(), "\n")
             
             self.assertEqual(f.readline(), "[id3]\n")
+            self.assertEqual(f.readline(), "name = name3\n")
             self.assertEqual(f.readline(), "info = info3\n")
 
             self.assertEqual(f.readline(), "\n")
             
             self.assertEqual(f.readline(), "[0]\n")
+            self.assertEqual(f.readline(), "name = name3\n")
             self.assertEqual(f.readline(), "info = info3\n")
 
             self.assertEqual(f.readline(), "\n")
@@ -96,6 +109,7 @@ class TestActivityDataAccess(unittest.TestCase):
         ada.load()
         a = Activity()
         a.set_id("id4")
+        a.set_name("name3")
         a.set_info("info3")
         self.assertTrue(ada.add_activity(a))
 
@@ -106,6 +120,7 @@ class TestActivityDataAccess(unittest.TestCase):
         self.assertFalse(lastCmt is a)
 
         self.assertEqual(lastCmt.get_id(), "id4")
+        self.assertEqual(lastCmt.get_name(), "name3")
         self.assertEqual(lastCmt.get_info(), "info3")
 
     def test_delete_then_list(self):
@@ -117,9 +132,11 @@ class TestActivityDataAccess(unittest.TestCase):
         self.assertEqual(len(allCmt), 2)
         
         self.assertEqual(allCmt[0].get_id(), "id2")
+        self.assertEqual(allCmt[0].get_name(), "name2")
         self.assertEqual(allCmt[0].get_info(), "info2")
         
         self.assertEqual(allCmt[1].get_id(), "id3")
+        self.assertEqual(allCmt[1].get_name(), "name3")
         self.assertEqual(allCmt[1].get_info(), "info3")
     
     def test_delete_then_save(self):
@@ -131,11 +148,13 @@ class TestActivityDataAccess(unittest.TestCase):
 
         with open("test.ini", "rt") as f:
             self.assertEqual(f.readline(), "[id2]\n")
+            self.assertEqual(f.readline(), "name = name2\n")
             self.assertEqual(f.readline(), "info = info2\n")
 
             self.assertEqual(f.readline(), "\n")
 
             self.assertEqual(f.readline(), "[id3]\n")
+            self.assertEqual(f.readline(), "name = name3\n")
             self.assertEqual(f.readline(), "info = info3\n")
 
             self.assertEqual(f.readline(), "\n")
@@ -146,6 +165,7 @@ class TestActivityDataAccess(unittest.TestCase):
         ada.load()
         a = Activity()
         a.set_id("id1")
+        a.set_name("name0")
         a.set_info("info0")
         self.assertTrue(ada.update_activity(a))
         clist = ada.list_all_activities()
@@ -154,14 +174,17 @@ class TestActivityDataAccess(unittest.TestCase):
 
         a = clist[0]
         self.assertEqual(a.get_id(), "id1")
+        self.assertEqual(a.get_name(), "name0")
         self.assertEqual(a.get_info(), "info0")
 
         a = clist[1]
         self.assertEqual(a.get_id(), "id2")
+        self.assertEqual(a.get_name(), "name2")
         self.assertEqual(a.get_info(), "info2")
 
         a = clist[2]
         self.assertEqual(a.get_id(), "id3")
+        self.assertEqual(a.get_name(), "name3")
         self.assertEqual(a.get_info(), "info3")
                     
     def test_update_then_save(self):
@@ -169,22 +192,26 @@ class TestActivityDataAccess(unittest.TestCase):
         ada.load()
         a = Activity()
         a.set_id("id1")
+        a.set_name("name0")
         a.set_info("info0")
         self.assertTrue(ada.update_activity(a))
         ada.save()
 
         with open("test.ini", "rt") as f:
             self.assertEqual(f.readline(), "[id1]\n")
+            self.assertEqual(f.readline(), "name = name0\n")
             self.assertEqual(f.readline(), "info = info0\n")
 
             self.assertEqual(f.readline(), "\n")
 
             self.assertEqual(f.readline(), "[id2]\n")
+            self.assertEqual(f.readline(), "name = name2\n")
             self.assertEqual(f.readline(), "info = info2\n")
 
             self.assertEqual(f.readline(), "\n")
 
             self.assertEqual(f.readline(), "[id3]\n")
+            self.assertEqual(f.readline(), "name = name3\n")
             self.assertEqual(f.readline(), "info = info3\n")
 
             self.assertEqual(f.readline(), "\n")

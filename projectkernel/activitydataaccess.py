@@ -17,6 +17,7 @@ class ActivityDataAccess:
         for id in self.m_config_parser.sections():
             c = activity.Activity()
             c.set_id(id)
+            c.set_name(self.m_config_parser[id]["name"])
             c.set_info(self.m_config_parser[id]["info"])
             self.m_activities.append(c)
 
@@ -49,19 +50,25 @@ class ActivityDataAccess:
             
         newatv = activity.Activity()
         newatv.set_id(atv.get_id())
+        newatv.set_name(atv.get_name())
         newatv.set_info(atv.get_info())
         self.m_activities.append(newatv)
 
         self.m_config_parser[newid] = {}
+        self.m_config_parser[newid]["name"] = atv.get_name()
         self.m_config_parser[newid]["info"] = atv.get_info()
 
         return True;
 
     def update_activity(self, atv):
-        if (self.m_config_parser.has_section(atv.get_id())):
+        if not atv.is_complete():
+            return False
+        elif (self.m_config_parser.has_section(atv.get_id())):
             for existing_atv in self.m_activities:
                 if existing_atv.get_id()== atv.get_id():
+                    existing_atv.set_name(atv.get_name())
                     existing_atv.set_info(atv.get_info())
+            self.m_config_parser[atv.get_id()]["name"] = atv.get_name()
             self.m_config_parser[atv.get_id()]["info"] = atv.get_info()
             return True
         else :

@@ -28,8 +28,17 @@ class DirectionsDataAccess:
                      self.m_directions.add_direction(a1, a2, self.m_config_parser[a1][a2])
 
     def save(self):
-        pass
+        with open(self.m_config_file_name, 'wt') as f:
+            self.m_config_parser.write(f);
 
     def get(self):
         return self.m_directions
 
+    def update(self, directions):
+        self.m_config_parser = configparser.ConfigParser()
+        self.m_directions = directions.Directions()
+        for loc in directions.get_locations():
+            self.m_config_parser[loc] = {}
+            for loc2 in directions.get_locations():
+                self.m_config_parser[loc][loc2] = directions.get_direction(loc, loc2)
+                self.m_directions.add_directions(loc, loc2, directions.get_direction(loc, loc2))

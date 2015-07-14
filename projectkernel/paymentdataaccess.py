@@ -18,6 +18,8 @@ class PaymentDataAccess:
             p = payment.Payment()
             p.set_id(id)
             p.set_amount(float(self.m_config_parser[id]["amount"]))
+            p.set_is_pending(self.m_config_parser[id]["pending"]=="True")
+            p.set_user_id(self.m_config_parser[id]["user id"])
             self.m_payments.append(p)
 
     def save(self):
@@ -49,19 +51,29 @@ class PaymentDataAccess:
             
         newpmt = payment.Payment()
         newpmt.set_id(pmt.get_id())
+        newpmt.set_user_id(pmt.get_user_id())
+        newpmt.set_is_pending(pmt.is_pending())
         newpmt.set_amount(pmt.get_amount())
         self.m_payments.append(newpmt)
 
         self.m_config_parser[newid] = {}
+        self.m_config_parser[newid]["user id"] = pmt.get_user_id()
+        self.m_config_parser[newid]["pending"] = str(pmt.is_pending())
         self.m_config_parser[newid]["amount"] = str(pmt.get_amount())
 
         return True;
 
     def update(self, pmt):
-        if (self.m_config_parser.has_section(pmt.get_id())):
+        if not pmt.is_complete():
+            return False
+        elif (self.m_config_parser.has_section(pmt.get_id())):
             for existing_pmt in self.m_payments:
                 if existing_pmt.get_id()== pmt.get_id():
+                    existing_pmt.set_user_id(pmt.get_user_id())
+                    existing_pmt.set_is_pending(pmt.is_pending())
                     existing_pmt.set_amount(pmt.get_amount())
+            self.m_config_parser[pmt.get_id()]["user id"] = pmt.get_user_id()
+            self.m_config_parser[pmt.get_id()]["pending"] = str(pmt.is_pending())
             self.m_config_parser[pmt.get_id()]["amount"] = str(pmt.get_amount())
             return True
         else :
