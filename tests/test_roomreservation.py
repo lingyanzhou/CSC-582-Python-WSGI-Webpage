@@ -1,21 +1,19 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.roomreservation
-from projectkernel.roomreservation import RoomReservation
+from projectkernel import RoomReservation
 
 import unittest
 import datetime
 
 class TestRoomReservation(unittest.TestCase):
 
-    def test_reserver_name(self):
+    def test_user_id(self):
         r = RoomReservation()
-        r.set_reserver_name("Name1")
-        self.assertEqual(r.get_reserver_name(), "Name1")
-        r.set_reserver_name("Name2")
-        self.assertEqual(r.get_reserver_name(), "Name2")
+        r.set_user_id("Name1")
+        self.assertEqual(r.get_user_id(), "Name1")
+        r.set_user_id("Name2")
+        self.assertEqual(r.get_user_id(), "Name2")
 
     def test_start_time(self):
         r = RoomReservation()
@@ -74,8 +72,8 @@ class TestRoomReservation(unittest.TestCase):
     def test_conflict(self):
         r1 = RoomReservation()
         r2 = RoomReservation()
-        r1.set_reserver_name("1")
-        r2.set_reserver_name("2")
+        r1.set_user_id("1")
+        r2.set_user_id("2")
         r1.set_reserved_room_id("1")
         r2.set_reserved_room_id("2")
 
@@ -90,13 +88,13 @@ class TestRoomReservation(unittest.TestCase):
         self.assertEqual(r1.conflict_with(r2), True)
         self.assertEqual(r2.conflict_with(r1), True)
 
-        r2.set_reserver_name("1")
+        r2.set_user_id("1")
         r2.set_reserved_room_id("2")
         self.assertEqual(r1.conflict_with(r2), True)
         self.assertEqual(r2.conflict_with(r1), True)
 
-        r1.set_reserver_name("1")
-        r2.set_reserver_name("2")
+        r1.set_user_id("1")
+        r2.set_user_id("2")
         r1.set_reserved_room_id("1")
         r2.set_reserved_room_id("1")
 

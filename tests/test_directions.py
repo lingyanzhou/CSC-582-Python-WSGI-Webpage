@@ -1,9 +1,7 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.directions
-from projectkernel.directions import Directions
+from projectkernel import Directions
 
 import unittest
 

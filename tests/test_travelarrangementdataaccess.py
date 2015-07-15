@@ -1,11 +1,8 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.travelarrangement
-from projectkernel.travelarrangement import TravelArrangement
-import projectkernel.travelarrangementdataaccess
-from projectkernel.travelarrangementdataaccess import TravelArrangementDataAccess
+from projectkernel import TravelArrangement
+from projectkernel import TravelArrangementDataAccess
 
 import os
 import configparser

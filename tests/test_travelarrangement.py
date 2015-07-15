@@ -1,9 +1,7 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.travelarrangement
-from projectkernel.travelarrangement import TravelArrangement 
+from projectkernel import TravelArrangement 
 
 import unittest
 import datetime

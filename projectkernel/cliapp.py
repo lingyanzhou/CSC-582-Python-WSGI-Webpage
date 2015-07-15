@@ -1,32 +1,48 @@
-from . import command
-from .command import Command
+from .command import AbstractCommand
+from .appstatus import AppUser
+import os
 
 class CLIApp:
     def __init__(self):
         self.m_commands = []
+        self.m_AppUser = None
+        
     def run(self):
         while True:
             print("====================================")
+            optionList = []
             for i in range(len(self.m_commands)):
-                print("{0:d}. {1:s}".format(i, self.m_commands[i].get_name()))
-            print("{0:d}. Quit".format(len(self.m_commands)))
+                isAccepted = self.m_commands[i].is_appuser_accepted(self.m_AppUser)
+                if isAccepted:
+                    print("{0:d}. {1:s}".format(len(optionList), self.m_commands[i].get_name()))
+                    optionList.append(i)
+
+            print("{0:d}. Quit".format(len(optionList)))
             print("Command: ")
             choice = 0
             try :
                 choice = int(input("Your choice:"))
-                if not choice in range(len(self.m_commands)+1):
+                if not (choice>=0 and choice <=len(optionList)):
                     raise ValueError()
             except EOFError:
-                choice = len(self.m_commands)
+                choice = len(optionList)
             except ValueError:
                 print("Invalid option")
                 continue
 
-            if choice == len(self.m_commands):
-                print(chr(27) + "[2J")
+            if choice == len(optionList):
+                self.clear_screen()
                 return
-            elif choice in range(len(self.m_commands)):
-                print(chr(27) + "[2J")
-                self.m_commands[choice].run()
+            elif choice>=0 and choice <len(optionList):
+                self.clear_screen()
+                self.m_commands[optionList[choice]].run()
                 input("Press Enter to continue")
-                print(chr(27) + "[2J")
+                self.clear_screen()
+                
+    def clear_screen(self):
+        if os.name=="nt":
+            os.system("cls")
+        elif os.name=="posix":
+            print(chr(27) + "[2J")
+        else:
+            print("\n"*10)

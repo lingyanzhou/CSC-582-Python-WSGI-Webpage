@@ -1,11 +1,8 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.room
-from projectkernel.room import Room
-import projectkernel.roomdataaccess
-from projectkernel.roomdataaccess import RoomDataAccess
+from projectkernel import Room
+from projectkernel import RoomDataAccess
 
 import os
 import configparser

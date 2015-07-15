@@ -1,136 +1,116 @@
-from . import cliapp
 from .cliapp import CLIApp
 
-from . import loadcommand
-from .loadcommand import LoadCommand
+from .dataaccess import RoomDataAccess
 
-from . import savecommand
-from .savecommand import SaveCommand
+from .dataaccess import RoomReservationDataAccess
 
-from . import roomdataaccess
-from .roomdataaccess import RoomDataAccess
+from .dataaccess import CommentDataAccess
 
-from . import roomreservationdataaccess
-from .roomreservationdataaccess import RoomReservationDataAccess
+from .dataaccess import RanchDataAccess
 
-from . import commentdataaccess
-from .commentdataaccess import CommentDataAccess
+from .dataaccess import ActivityDataAccess
 
-from . import ranchdataaccess
-from .ranchdataaccess import RanchDataAccess
+from .dataaccess import ActivityReservationDataAccess
 
-from . import activitydataaccess
-from .activitydataaccess import ActivityDataAccess
+from .dataaccess import DirectionsDataAccess
 
-from . import activityreservationdataaccess
-from .activityreservationdataaccess import ActivityReservationDataAccess
+from .dataaccess import PaymentDataAccess
 
-from . import directionsdataaccess
-from .directionsdataaccess import DirectionsDataAccess
+from .dataaccess import TravelArrangementDataAccess
 
-from . import paymentdataaccess
-from .paymentdataaccess import PaymentDataAccess
+from .dataaccess import UserDataAccess
 
-from . import travelarrangementdataaccess
-from .travelarrangementdataaccess import TravelArrangementDataAccess
+from .command import LoadCommand
 
-from . import listcommentscommand
-from .listcommentscommand import ListCommentsCommand
+from .command import SaveCommand
 
-from . import listactivitiescommand
-from .listactivitiescommand import ListActivitiesCommand
+from .command import LoginCommand
 
-from . import listroomscommand
-from .listroomscommand import ListRoomsCommand
+from .command import LogoutCommand
 
-from . import listroomreservationscommand
-from .listroomreservationscommand import ListRoomReservationsCommand
+from .command import ListCommentsCommand
 
-from . import listactivityreservationscommand
-from .listactivityreservationscommand import ListActivityReservationsCommand
+from .command import ListActivitiesCommand
 
-from . import listpaymentscommand
-from .listpaymentscommand import ListPaymentsCommand
+from .command import ListRoomsCommand
 
-from . import listdirectionscommand
-from .listdirectionscommand import ListDirectionsCommand
+from .command import ListRoomReservationsCommand
 
-from . import listtravelarrangementscommand
-from .listtravelarrangementscommand import ListTravelArrangementsCommand
+from .command import ListActivityReservationsCommand
 
-from . import printranchcommand
-from .printranchcommand import PrintRanchCommand
+from .command import ListPaymentsCommand
 
-from . import addactivitycommand
-from .addactivitycommand import AddActivityCommand
+from .command import ListDirectionsCommand
 
-from . import addroomcommand
-from .addroomcommand import AddRoomCommand
+from .command import ListTravelArrangementsCommand
 
-from . import addcommentcommand
-from .addcommentcommand import AddCommentCommand
+from .command import ListUsersCommand
 
-from . import makeroomreservationcommand
-from .makeroomreservationcommand import MakeRoomReservationCommand
+from .command import PrintRanchCommand
 
-from . import makeactivityreservationcommand
-from .makeactivityreservationcommand import MakeActivityReservationCommand
+from .command import AddActivityCommand
 
-from . import makepaymentcommand
-from .makepaymentcommand import MakePaymentCommand
+from .command import AddRoomCommand
 
-from . import maketravelarrangementcommand
-from .maketravelarrangementcommand import MakeTravelArrangementCommand
+from .command import AddCommentCommand
 
-from . import updateranchcommand
-from .updateranchcommand import UpdateRanchCommand
+from .command import MakeRoomReservationCommand
 
-from . import updateroomcommand
-from .updateroomcommand import UpdateRoomCommand
+from .command import MakeActivityReservationCommand
 
-from . import updateactivitycommand
-from .updateactivitycommand import UpdateActivityCommand
+from .command import MakePaymentCommand
 
-from . import updatecommentcommand
-from .updatecommentcommand import UpdateCommentCommand
+from .command import MakeTravelArrangementCommand
 
-from . import updateroomreservationcommand
-from .updateroomreservationcommand import UpdateRoomReservationCommand
+from .command import UpdateRanchCommand
 
-from . import updateactivityreservationcommand
-from .updateactivityreservationcommand import UpdateActivityReservationCommand
+from .command import UpdateRoomCommand
 
-from . import updatepaymentcommand
-from .updatepaymentcommand import UpdatePaymentCommand
+from .command import UpdateActivityCommand
 
-from . import updatetravelarrangementcommand
-from .updatetravelarrangementcommand import UpdateTravelArrangementCommand
+from .command import UpdateCommentCommand
 
-from . import deleteroomcommand
-from .deleteroomcommand import DeleteRoomCommand
+from .command import UpdateRoomReservationCommand
 
-from . import deleteactivitycommand
-from .deleteactivitycommand import DeleteActivityCommand
+from .command import UpdateActivityReservationCommand
 
-from . import deletecommentcommand
-from .deletecommentcommand import DeleteCommentCommand
+from .command import UpdatePaymentCommand
 
-from . import deleteroomreservationcommand
-from .deleteroomreservationcommand import DeleteRoomReservationCommand
+from .command import UpdateTravelArrangementCommand
 
-from . import deleteactivityreservationcommand
-from .deleteactivityreservationcommand import DeleteActivityReservationCommand
+from .command import UpdateUserCommand
 
-from . import deletepaymentcommand
-from .deletepaymentcommand import DeletePaymentCommand
+from .command import DeleteRoomCommand
 
-from . import deletetravelarrangementcommand
-from .deletetravelarrangementcommand import DeleteTravelArrangementCommand
+from .command import DeleteActivityCommand
+
+from .command import DeleteCommentCommand
+
+from .command import DeleteRoomReservationCommand
+
+from .command import DeleteActivityReservationCommand
+
+from .command import DeletePaymentCommand
+
+from .command import DeleteTravelArrangementCommand
+
+from .command import DeleteUserCommand
+
+from .command import LoginCommand
+
+from .command import LogoutCommand
+
+from .command import AddUserCommand
+
+from .command import PrintCurrentUserCommand
+
+from .appstatus import AppUser
 
 class AdminSubApp(CLIApp):
     def __init__(self, roomReservationDA = None, commentDA = None, ranchDA = None,
             roomDA = None, activityDA = None, activityReservationDA = None, directionDA = None,
-            paymentDA = None, travelArrangementDA = None):
+            paymentDA = None, travelArrangementDA = None, userDA = None,
+            appUser = None):
         CLIApp.__init__(self)
         if (None == roomReservationDA):
             self.m_RoomReservationDA = RoomReservationDataAccess("./data/RoomReservation.ini")
@@ -168,7 +148,18 @@ class AdminSubApp(CLIApp):
             self.m_TravelArrangementDA = TravelArrangementDataAccess("./data/TravelArrangement.ini")
         else:
             self.m_TravelArrangementDA = travelArrangementDA
-            
+    
+        if (None == userDA):
+            self.m_UserDA = UserDataAccess("./data/User.ini")
+        else:
+            self.m_UserDA = userDA
+
+        if (None == appUser):
+            self.m_AppUser = AppUser()
+            self.m_AppUser.logout()
+        else :
+            self.m_AppUser = appUser
+
         loadCommand = LoadCommand()
         loadCommand.attach_dataaccess(self.m_RoomDA)
         loadCommand.attach_dataaccess(self.m_RoomReservationDA)
@@ -179,7 +170,8 @@ class AdminSubApp(CLIApp):
         loadCommand.attach_dataaccess(self.m_DirectionDA)
         loadCommand.attach_dataaccess(self.m_PaymentDA)
         loadCommand.attach_dataaccess(self.m_TravelArrangementDA)
-        
+        loadCommand.attach_dataaccess(self.m_UserDA)
+ 
         saveCommand = SaveCommand()
         saveCommand.attach_dataaccess(self.m_RoomDA)
         saveCommand.attach_dataaccess(self.m_RoomReservationDA)
@@ -229,6 +221,9 @@ class AdminSubApp(CLIApp):
 
         self.m_commands.append(saveCommand)
         self.m_commands.append(loadCommand)
+        self.m_commands.append(LoginCommand(self.m_UserDA, self.m_AppUser))
+        self.m_commands.append(LogoutCommand(self.m_AppUser))
+        self.m_commands.append(PrintCurrentUserCommand(self.m_AppUser))
         self.m_commands.append(printRanchCommand)
         self.m_commands.append(listRoomsCommand)
         self.m_commands.append(listCommentsCommand)
@@ -238,6 +233,7 @@ class AdminSubApp(CLIApp):
         self.m_commands.append(listPaymentsCommand)
         self.m_commands.append(listDirectionsCommand)
         self.m_commands.append(listTravelArrangementsCommand)
+        self.m_commands.append(ListUsersCommand(self.m_UserDA))
         
         self.m_commands.append(addRoomCommand)
         self.m_commands.append(addActivityCommand)
@@ -246,6 +242,8 @@ class AdminSubApp(CLIApp):
         self.m_commands.append(makeActivityReservationCommand)
         self.m_commands.append(makePaymentCommand)
         self.m_commands.append(makeTravelArrangementCommand)
+        self.m_commands.append(AddUserCommand(self.m_UserDA))
+
 
         self.m_commands.append(updateRanchCommand)
         self.m_commands.append(updateRoomCommand)
@@ -255,6 +253,7 @@ class AdminSubApp(CLIApp):
         self.m_commands.append(updateActivityReservationCommand)
         self.m_commands.append(updatePaymentCommand)
         self.m_commands.append(updateTravelArrangementCommand)
+        self.m_commands.append(UpdateUserCommand(self.m_UserDA))
 
         self.m_commands.append(deleteRoomCommand)
         self.m_commands.append(deleteActivityCommand)
@@ -263,3 +262,4 @@ class AdminSubApp(CLIApp):
         self.m_commands.append(deleteActivityReservationCommand)
         self.m_commands.append(deletePaymentCommand)
         self.m_commands.append(deleteTravelArrangementCommand)
+        self.m_commands.append(DeleteUserCommand(self.m_UserDA))

@@ -1,9 +1,7 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.ranch
-from projectkernel.ranch import Ranch 
+from projectkernel import Ranch 
 
 import unittest
 import datetime

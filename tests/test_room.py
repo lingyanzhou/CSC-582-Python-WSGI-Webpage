@@ -1,9 +1,7 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.room
-from projectkernel.room import Room 
+from projectkernel import Room 
 
 import unittest
 import datetime

@@ -1,11 +1,8 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.ranch
-from projectkernel.ranch import Ranch
-import projectkernel.ranchdataaccess
-from projectkernel.ranchdataaccess import RanchDataAccess
+from projectkernel import Ranch
+from projectkernel import RanchDataAccess
 
 import os
 import configparser

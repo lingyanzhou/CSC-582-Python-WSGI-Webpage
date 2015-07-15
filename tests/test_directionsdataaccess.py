@@ -3,9 +3,8 @@
 """
 import configparser
 import os
-import projectkernel
-import projectkernel.directionsdataaccess
-from projectkernel.directionsdataaccess import DirectionsDataAccess
+from projectkernel import Directions
+from projectkernel import DirectionsDataAccess
 
 import unittest
 

@@ -1,9 +1,7 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.comment
-from projectkernel.comment import Comment 
+from projectkernel import Comment 
 
 import unittest
 import datetime
@@ -12,10 +10,10 @@ class TestComment(unittest.TestCase):
 
     def test_user_name(self):
         c = Comment()
-        c.set_user_name("Name1")
-        self.assertEqual(c.get_user_name(), "Name1")
-        c.set_user_name("Name2")
-        self.assertEqual(c.get_user_name(), "Name2")
+        c.set_user_id("Name1")
+        self.assertEqual(c.get_user_id(), "Name1")
+        c.set_user_id("Name2")
+        self.assertEqual(c.get_user_id(), "Name2")
 
     def test_time(self):
         c = Comment()
@@ -49,7 +47,7 @@ class TestComment(unittest.TestCase):
         self.assertFalse(c.is_complete())
         c.set_time_now()
         self.assertFalse(c.is_complete())
-        c.set_user_name("user1")
+        c.set_user_id("user1")
         self.assertFalse(c.is_complete())
         c.set_message("message 1")
         self.assertTrue(c.is_complete())

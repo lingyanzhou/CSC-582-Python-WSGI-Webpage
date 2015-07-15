@@ -1,9 +1,7 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.activity
-from projectkernel.activity import Activity 
+from projectkernel import Activity 
 
 import unittest
 import datetime

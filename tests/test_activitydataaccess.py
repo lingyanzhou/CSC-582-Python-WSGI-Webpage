@@ -1,11 +1,8 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.activity
-from projectkernel.activity import Activity
-import projectkernel.activitydataaccess
-from projectkernel.activitydataaccess import ActivityDataAccess
+from projectkernel import Activity
+from projectkernel import ActivityDataAccess
 
 import os
 import configparser

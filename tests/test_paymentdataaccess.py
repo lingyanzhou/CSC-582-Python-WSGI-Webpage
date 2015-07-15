@@ -1,11 +1,8 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.payment
-from projectkernel.payment import Payment
-import projectkernel.paymentdataaccess
-from projectkernel.paymentdataaccess import PaymentDataAccess
+from projectkernel import Payment
+from projectkernel import PaymentDataAccess
 
 import os
 import configparser

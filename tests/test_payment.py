@@ -1,9 +1,7 @@
 """
 @author Lingyan Zhou
 """
-import projectkernel
-import projectkernel.payment
-from projectkernel.payment import Payment 
+from projectkernel import Payment 
 
 import unittest
 import datetime
