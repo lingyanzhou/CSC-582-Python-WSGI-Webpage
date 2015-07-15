@@ -1,3 +1,3 @@
-from projectkernel.mainapp import MainApp
+from projectkernel import MainApp
 if __name__ == "__main__":
     MainApp().run()
