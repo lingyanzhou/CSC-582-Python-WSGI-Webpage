@@ -1,0 +1,9 @@
+How to use the software:
+0. This python code is written for python3.
+1. You can start the program by double clicking on the main.py file.
+2. You choose an option by typing in the option number. For example, you wan to choose "1. Load", you need to type in "1" and press enter.
+3. You need to load some data from files by choosing the "Load" option, otherwise you won't see anything interesting or even login.
+4. You can use some non-administrative options before you login. But unlike non-administrative users, you cannot reserve a room or an activity.
+5. You can login by choosing "Login" option. Here are the existing users:
+    ID: 0. Password: 0. Administrative user.
+    ID: 1. Password: 1. Non-administrative user. 
